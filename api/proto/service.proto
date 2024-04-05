@@ -1,0 +1,27 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/Alieksieiev0/user-service/api/proto";
+
+service UserService {
+    rpc GetByUsername(UsernameRequest) returns (UserResponse);
+    rpc Save(UserRequest) returns (google.protobuf.Empty);
+
+}
+
+message UsernameRequest {
+    string username = 1;
+}
+
+message UserRequest {
+    string username = 1;
+    string password = 2;
+    string email = 3;
+}
+
+message UserResponse {
+    string id = 1;
+    string username = 2;
+    string password = 3;
+    string email = 4;
+}

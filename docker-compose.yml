@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+      - "4000:4000"
+    volumes:
+      - .:/app
+  db:
+    image: postgres
+    volumes:
+      - goshop-data:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_HOST=${DB_HOST}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_PORT=${DB_PORT}
+      - POSTGRES_DB=${DB_NAME}
+
+volumes:
+  goshop-data:
+
