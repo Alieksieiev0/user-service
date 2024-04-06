@@ -25,7 +25,6 @@ func (us *RESTServer) Start(addr string, service services.UserService) error {
 
 	us.app.Get("/users/:id", getById(service))
 	us.app.Get("/users", create(service))
-	go us.app.Listen(addr)
 
 	return us.app.Listen(addr)
 }

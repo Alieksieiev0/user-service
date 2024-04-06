@@ -10,7 +10,21 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-func Connect() (*gorm.DB, error) {
+func Start() (*gorm.DB, error) {
+	db, err := connect()
+	if err != nil {
+		return nil, err
+	}
+
+	err = setup(db)
+	if err != nil {
+		return nil, err
+	}
+
+	return db, err
+}
+
+func connect() (*gorm.DB, error) {
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s",
 		os.Getenv("DB_HOST"),
@@ -25,7 +39,7 @@ func Connect() (*gorm.DB, error) {
 	})
 }
 
-func Setup(db *gorm.DB) error {
+func setup(db *gorm.DB) error {
 	if err := db.Exec("CREATE EXTENSION IF NOT EXISTS pg_trgm").Error; err != nil {
 		return err
 	}

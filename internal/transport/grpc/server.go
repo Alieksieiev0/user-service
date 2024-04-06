@@ -8,18 +8,8 @@ import (
 	"github.com/Alieksieiev0/user-service/internal/models"
 	"github.com/Alieksieiev0/user-service/internal/services"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
-
-func NewGRPCClient(addr string) (proto.UserServiceClient, error) {
-	conn, err := grpc.NewClient(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		return nil, err
-	}
-
-	return proto.NewUserServiceClient(conn), nil
-}
 
 type GRPCServer struct {
 }
