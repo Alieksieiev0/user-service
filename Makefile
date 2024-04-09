@@ -21,6 +21,14 @@ docker-run:
 		docker-compose up; \
 	fi
 
+docker-build-n-run:
+	@if docker compose up 2>/dev/null; then \
+		: ; \
+	else \
+		echo "Falling back to Docker Compose V1"; \
+		docker-compose up --build; \
+	fi
+
 # Shutdown DB container
 docker-down:
 	@if docker compose down 2>/dev/null; then \
